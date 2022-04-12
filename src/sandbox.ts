@@ -1,20 +1,26 @@
-const logDetails = (uid: string | number, item: string) => {
-  console.log(`${item} has uid of ${uid}`);
+// this function return void
+let greet: (a: string, b: string) => void;
+
+greet = (name: string, greeting: string) => {
+  console.log(`${name} says ${greeting}`);
 };
 
-const greet = (user: { name: string; uid: number | string }) => {
-  console.log(`${user.name} says hello`);
+// this return SHOULD return number, otherwise the error shows up
+let calc: (a: number, b: number, c: string) => number;
+
+calc = (numOne: number, numTwo: number, action: string) => {
+  if (action === "add") {
+    return numOne + numTwo;
+  } else {
+    return numOne - numTwo;
+  }
 };
 
-// We can simplify those function by declaring the type aliases
+// this function use type to simplify the parameter
+let logDetails: (obj: { name: string; age: number }) => void;
 
-type StringOrNum = string | number;
-type objWithName = { name: string; uid: StringOrNum };
+type person = { name: string; age: number };
 
-const logDetailsAgain = (uid: StringOrNum, item: string) => {
-  console.log(`${item} has uid of ${uid}`);
-};
-
-const greetAgain = (user: objWithName) => {
-  console.log(`${user.name} says hello`);
+logDetails = (ninja: person) => {
+  console.log(`${ninja.name} is ${ninja.age} years old`);
 };
