@@ -1,20 +1,20 @@
-let greet: Function;
-
-greet = () => {
-  console.log("hi");
+const logDetails = (uid: string | number, item: string) => {
+  console.log(`${item} has uid of ${uid}`);
 };
 
-const add = (a: number, b: number, c?: number | string) => {
-  console.log(a + b);
+const greet = (user: { name: string; uid: number | string }) => {
+  console.log(`${user.name} says hello`);
 };
 
-add(15, 5);
+// We can simplify those function by declaring the type aliases
 
-// when we need an optional parameter, we can add ? just like the example above
-// the optional parameter always at the end of the required-params
-// other than ? to mark as an optional, we can add the default value such as c: number | string = 10, that way we don't need to add ? to mark optional parameter. but if you declare the value of the third value, it will override the default value
+type StringOrNum = string | number;
+type objWithName = { name: string; uid: StringOrNum };
 
-// function with explicit return, we declare it as number so when it's reassign to string value, it won't work
-const minus = (a: number, b: number): number => {
-  return a + b;
+const logDetailsAgain = (uid: StringOrNum, item: string) => {
+  console.log(`${item} has uid of ${uid}`);
+};
+
+const greetAgain = (user: objWithName) => {
+  console.log(`${user.name} says hello`);
 };
