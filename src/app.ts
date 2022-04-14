@@ -1,29 +1,40 @@
-// interfaces
-// it allows us to enforce a certain structure of the class or object, we can use it to describe what properties what method and what type of those properties and return types of those methods are.
-interface IsPerson {
-  name: string;
-  age?: number; // ? means optional
-  speak(a: string): void;
-  spend(n: number): number;
-}
+import { Invoice } from "./classes/invoice.js";
+import { Payment } from "./classes/payment.js";
+import { HasFormatter } from "./interfaces/HasFormatter.js";
 
-const me: IsPerson = {
-  name: "Anang",
-  speak(text: string): void {
-    console.log(text);
-  },
-  spend(amount: number): number {
-    console.log(`I spent ${amount}`);
-    // kalo function tipe-nya BUKAN any dan void, HARUS return value
-    // makannya ini harus ada return
-    return amount;
-  },
-};
+// let docOne: HasFormatter;
+// let docTwo: HasFormatter;
 
-// we can use the object as argument in a function
-const greetPerson = (person: IsPerson) => {
-  console.log(`Hi ${person.name}`);
-};
+// docOne = new Invoice("Domo", "Backlink Work", 400);
+// docTwo = new Payment("Luigi", "Plumbing Work", 300);
 
-// greetPerson({ name: "Shelby" }); THIS WONT WORK
-// greetPerson(me);
+// let docs: HasFormatter[] = [];
+// docs.push(docOne);
+// docs.push(docTwo);
+
+// console.log(docs);
+
+const form = document.querySelector(".new-item-form") as HTMLFormElement;
+
+// inputs
+const type = document.querySelector("#type") as HTMLSelectElement;
+const toForm = document.querySelector("#tofrom") as HTMLInputElement;
+const details = document.querySelector("#details") as HTMLInputElement;
+const amount = document.querySelector("#amount") as HTMLInputElement;
+
+form.addEventListener("submit", (e: Event) => {
+  e.preventDefault();
+
+  let doc: HasFormatter;
+
+  if (type.value === "invoice") {
+    doc = new Invoice(toForm.value, details.value, amount.valueAsNumber);
+  } else {
+    doc = new Payment(toForm.value, details.value, amount.valueAsNumber);
+  }
+
+  console.log(doc);
+  toForm.value = "";
+  details.value = "";
+  amount.value = "";
+});
