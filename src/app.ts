@@ -1,28 +1,29 @@
-import { Invoice } from "./classes/invoice.js"; // remember the extension is .JS
+// interfaces
+// it allows us to enforce a certain structure of the class or object, we can use it to describe what properties what method and what type of those properties and return types of those methods are.
+interface IsPerson {
+  name: string;
+  age?: number; // ? means optional
+  speak(a: string): void;
+  spend(n: number): number;
+}
 
-const invoiceOne = new Invoice("Mario", "Bakery", 200);
-const invoiceTwo = new Invoice("Thomas", "Soda", 50);
-const invoiceThree = new Invoice("Diesel", "Fuel", 450);
+const me: IsPerson = {
+  name: "Anang",
+  speak(text: string): void {
+    console.log(text);
+  },
+  spend(amount: number): number {
+    console.log(`I spent ${amount}`);
+    // kalo function tipe-nya BUKAN any dan void, HARUS return value
+    // makannya ini harus ada return
+    return amount;
+  },
+};
 
-let invoices: Invoice[] = [];
-invoices.push(invoiceOne);
-invoices.push(invoiceTwo);
-invoices.push(invoiceThree);
+// we can use the object as argument in a function
+const greetPerson = (person: IsPerson) => {
+  console.log(`Hi ${person.name}`);
+};
 
-invoices.forEach((inv) => {
-  console.log(inv.client, inv.amount, inv.format());
-});
-
-const form = document.querySelector(".new-item-form") as HTMLFormElement;
-
-// inputs
-const type = document.querySelector("#type") as HTMLSelectElement;
-const toForm = document.querySelector("#tofrom") as HTMLInputElement;
-const details = document.querySelector("#details") as HTMLInputElement;
-const amount = document.querySelector("#amount") as HTMLInputElement;
-
-form.addEventListener("submit", (e: Event) => {
-  e.preventDefault();
-
-  console.log(type.value, toForm.value, details.value, amount.valueAsNumber);
-});
+// greetPerson({ name: "Shelby" }); THIS WONT WORK
+// greetPerson(me);
