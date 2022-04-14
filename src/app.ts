@@ -1,7 +1,9 @@
 // classes
 class Invoice {
-  client: string;
-  details: string;
+  // READONLY means that we can access it everywhere, but we can't change the value ofit!
+  readonly client: string;
+  // 1. when we declare private in here -- [PRIVATE]
+  private details: string;
   amount: number;
 
   constructor(c: string, d: string, a: number) {
@@ -9,7 +11,7 @@ class Invoice {
     this.details = d;
     this.amount = a;
   }
-
+  // 2. we can still access it in here -- [PRIVATE]
   format() {
     return `${this.client} owes $${this.amount} for ${this.details}`;
   }
@@ -17,12 +19,17 @@ class Invoice {
 
 const invoiceOne = new Invoice("Mario", "Bakery", 200);
 const invoiceTwo = new Invoice("Thomas", "Soda", 50);
+const invoiceThree = new Invoice("Diesel", "Fuel", 450);
 
 let invoices: Invoice[] = [];
 invoices.push(invoiceOne);
 invoices.push(invoiceTwo);
+invoices.push(invoiceThree);
 
-console.log(invoices);
+// but we can't access the details in here -- [PRIVATE]
+invoices.forEach((inv) => {
+  console.log(inv.client, inv.amount, inv.format());
+});
 
 const form = document.querySelector(".new-item-form") as HTMLFormElement;
 
