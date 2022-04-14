@@ -1,19 +1,30 @@
-const anchor = document.querySelector("a");
+// classes
+class Invoice {
+  client: string;
+  details: string;
+  amount: number;
 
-console.log(anchor?.href);
+  constructor(c: string, d: string, a: number) {
+    this.client = c;
+    this.details = d;
+    this.amount = a;
+  }
 
-// if we are so sure that there's a tag in the file, we can add ! at the back
-// const anchor = document.querySelector("a")!
+  format() {
+    return `${this.client} owes $${this.amount} for ${this.details}`;
+  }
+}
 
-// this is how we shot the form element, because it has only 1 form then we can directly get it with querySelector and then add !
-const form = document.querySelector("form")!;
+const invoiceOne = new Invoice("Mario", "Bakery", 200);
+const invoiceTwo = new Invoice("Thomas", "Soda", 50);
 
-// ========== Type Casting ==========
+let invoices: Invoice[] = [];
+invoices.push(invoiceOne);
+invoices.push(invoiceTwo);
 
-// if there are more than 1 forms, we shot it with its classes
-// when we pass class, we need to declare the type casting
-const formAgain = document.querySelector(".new-item-form") as HTMLFormElement;
-console.log(formAgain.children);
+console.log(invoices);
+
+const form = document.querySelector(".new-item-form") as HTMLFormElement;
 
 // inputs
 // it uses HTMLSelectElement because it is select field
@@ -28,7 +39,7 @@ const details = document.querySelector("#details") as HTMLInputElement;
 // it uses HTMLSelectElement because it is input element
 const amount = document.querySelector("#amount") as HTMLInputElement;
 
-formAgain.addEventListener("submit", (e: Event) => {
+form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
 
   console.log(type.value, toForm.value, details.value, amount.valueAsNumber);
