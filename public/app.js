@@ -1,26 +1,35 @@
-import { Invoice } from "./classes/invoice.js";
-import { ListTemplate } from "./classes/listTemplate.js";
-import { Payment } from "./classes/payment.js";
-// list template instance
-const ul = document.querySelector("ul");
-const list = new ListTemplate(ul);
-const form = document.querySelector(".new-item-form");
-// inputs
-const type = document.querySelector("#type");
-const toForm = document.querySelector("#tofrom");
-const details = document.querySelector("#details");
-const amount = document.querySelector("#amount");
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let doc;
-    if (type.value === "invoice") {
-        doc = new Invoice(toForm.value, details.value, amount.valueAsNumber);
-    }
-    else {
-        doc = new Payment(toForm.value, details.value, amount.valueAsNumber);
-    }
-    list.render(doc, type.value, "end");
-    toForm.value = "";
-    details.value = "";
-    amount.value = "";
-});
+"use strict";
+// Generics
+// It allows you to create reusable block of code that can be used with different types
+// T will chapture whatever item we pass to the function
+const addUID = (obj) => {
+    let uid = Math.floor(Math.random() * 100);
+    return Object.assign(Object.assign({}, obj), { uid });
+};
+let docOne = addUID({ name: "Tim", age: 20 });
+console.log(docOne.age);
+// T extends object, whatever we pass must be an object
+const addUIDnum2 = (obj) => {
+    let uid = Math.floor(Math.random() * 100);
+    return Object.assign(Object.assign({}, obj), { uid });
+};
+let docTwo = addUIDnum2({ name: "Tim", age: 20 });
+console.log(docTwo);
+const docThree = {
+    uid: 1,
+    resourceName: "data",
+    // this part should be a string because the T is now string as we declared
+    data: "the data is lorem ipsum",
+};
+const docFour = {
+    uid: 1,
+    resourceName: "person",
+    // this part should be object because the T is now object as we declared
+    data: { name: "TIm" },
+};
+const docFive = {
+    uid: 1,
+    resourceName: "shoppinglist",
+    // this part should be object because the T is now object as we declared
+    data: ["pear", "strawberry", "pineapple"],
+};

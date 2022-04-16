@@ -1,33 +1,48 @@
-import { Invoice } from "./classes/invoice.js";
-import { ListTemplate } from "./classes/listTemplate.js";
-import { Payment } from "./classes/payment.js";
-import { HasFormatter } from "./interfaces/HasFormatter.js";
+// Generics
+// It allows you to create reusable block of code that can be used with different types
 
-// list template instance
-const ul = document.querySelector("ul")!;
-const list = new ListTemplate(ul);
+// T will chapture whatever item we pass to the function
+const addUID = <T>(obj: T) => {
+  let uid = Math.floor(Math.random() * 100);
+  return { ...obj, uid };
+};
 
-const form = document.querySelector(".new-item-form") as HTMLFormElement;
+let docOne = addUID({ name: "Tim", age: 20 });
+console.log(docOne.age);
 
-// inputs
-const type = document.querySelector("#type") as HTMLSelectElement;
-const toForm = document.querySelector("#tofrom") as HTMLInputElement;
-const details = document.querySelector("#details") as HTMLInputElement;
-const amount = document.querySelector("#amount") as HTMLInputElement;
+// T extends object, whatever we pass must be an object
+const addUIDnum2 = <T extends object>(obj: T) => {
+  let uid = Math.floor(Math.random() * 100);
+  return { ...obj, uid };
+};
 
-form.addEventListener("submit", (e: Event) => {
-  e.preventDefault();
+let docTwo = addUIDnum2({ name: "Tim", age: 20 });
+console.log(docTwo);
 
-  let doc: HasFormatter;
+// Generics with Interfaces
+interface Resources<T> {
+  uid: number;
+  resourceName: string;
+  data: T;
+}
 
-  if (type.value === "invoice") {
-    doc = new Invoice(toForm.value, details.value, amount.valueAsNumber);
-  } else {
-    doc = new Payment(toForm.value, details.value, amount.valueAsNumber);
-  }
+const docThree: Resources<string> = {
+  uid: 1,
+  resourceName: "data",
+  // this part should be a string because the T is now string as we declared
+  data: "the data is lorem ipsum",
+};
 
-  list.render(doc, type.value, "end");
-  toForm.value = "";
-  details.value = "";
-  amount.value = "";
-});
+const docFour: Resources<object> = {
+  uid: 1,
+  resourceName: "person",
+  // this part should be object because the T is now object as we declared
+  data: { name: "TIm" },
+};
+
+const docFive: Resources<string[]> = {
+  uid: 1,
+  resourceName: "shoppinglist",
+  // this part should be object because the T is now object as we declared
+  data: ["pear", "strawberry", "pineapple"],
+};
