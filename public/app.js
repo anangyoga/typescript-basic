@@ -1,25 +1,15 @@
 "use strict";
-// Enums
-// a way to specify descriptive constant and associate each one with numeric value behind the scene (on the console)
-// Enums is zero-based just like index
-var resourceType;
-(function (resourceType) {
-    resourceType[resourceType["BOOK"] = 0] = "BOOK";
-    resourceType[resourceType["AUTHOR"] = 1] = "AUTHOR";
-    resourceType[resourceType["FILM"] = 2] = "FILM";
-    resourceType[resourceType["DIRECTOR"] = 3] = "DIRECTOR";
-    resourceType[resourceType["PERSON"] = 4] = "PERSON";
-})(resourceType || (resourceType = {}));
-const docOne = {
-    uid: 23,
-    //this one, we don't need to remember the index/number of certain constant
-    resourceType: resourceType.AUTHOR,
-    data: { name: "Jonas Jonasson" },
-};
-const docTwo = {
-    uid: 19,
-    // and this one, we still use number/index to associate constant
-    resourceType: 4,
-    data: { name: "Gillian" },
-};
-console.log(docOne, docTwo);
+// Tuples
+// It's like array, we use curly-bracket to define and it uses array method too. But there's major difference, types of data in each position in Tuple is fixed once it's being initialized
+// array
+let arrayOfTuple = ["ryu", 25, true];
+arrayOfTuple[1] = false;
+arrayOfTuple[2] = "ken";
+arrayOfTuple = [50, "Blink182", false];
+console.log(arrayOfTuple);
+// this is how we define tupple
+let tup = ["ryu", 25, true];
+tup[0] = "ken"; // this is okay
+tup[1] = true; // this is NOKAY
+let student;
+student = ["chun li", 23232];
